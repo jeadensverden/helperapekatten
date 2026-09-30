@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>🐒 Norsk Monkey Run</title>
+
+<style>
+
+/* ==================================================
+   BASIC
+================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  text-align: center;
+
+  background:
+    linear-gradient(
+      #6dd5fa,
+      #ffffff
+    );
+
+  overflow-x: hidden;
+}
+
+
+/* ==================================================
+   TITLE
+================================================== */
+
+h1 {
+  color: #6b2d5c;
+  margin: 15px 0 5px;
+}
+
+body > p {
+  margin-top: 5px;
+}
+
+
+/* ==================================================
+   GAME
+================================================== */
+
+#game {
+
+  width: 95%;
+  max-width: 700px;
+
+  margin: auto;
+
+  background: #8ee381;
+
+  border: 6px solid #4b2e83;
+
+  border-radius: 25px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.25);
+}
+
+
+/* ==================================================
+   SKY
+================================================== */
+
+#sky {
+
+  height: 260px;
+
+  position: relative;
+
+  background:
+    linear-gradient(
+      #61c9ff,
+      #c8f4ff
+    );
+
+  overflow: hidden;
+}
+
+
+/* ==================================================
+   CLOUDS
+================================================== */
+
+.cloud {
+
+  position: absolute;
+
+  font-size: 45px;
+}
+
+.cloud1 {
+
+  left: 10%;
+  top: 30px;
+}
+
+.cloud2 {
+
+  right: 10%;
+  top: 70px;
+}
+
+
+/* ==================================================
+   MONKEY
+================================================== */
+
+#monkey {
+
+  position: absolute;
+
+  left: 30px;
+  bottom: 20px;
+
+  font-size: 65px;
+
+  transition:
+    left 0.6s ease,
+    transform 0.2s ease;
+
+  z-index: 10;
+}
+
+
+/* ==================================================
+   HAPPY MONKEY
+================================================== */
+
+.monkeyHappy {
+
+  animation:
+    happyMonkey
+    0.6s
+    ease;
+}
+
+
+@keyframes happyMonkey {
+
+  0% {
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  30% {
+
+    transform:
+      translateY(-20px)
+      scale(1.15);
+  }
+
+  60% {
+
+    transform:
+      translateY(-8px)
+      scale(1.08);
+  }
+
+  100% {
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* ==================================================
+   WRONG MONKEY
+================================================== */
+
+.monkeyWrong {
+
+  animation:
+    wrongMonkey
+    0.6s
+    ease;
+}
+
+
+@keyframes wrongMonkey {
+
+  0% {
+
+    transform:
+      translateX(0)
+      rotate(0);
+  }
+
+  20% {
+
+    transform:
+      translateX(-8px)
+      rotate(-8deg);
+  }
+
+  40% {
+
+    transform:
+      translateX(8px)
+      rotate(8deg);
+  }
+
+  60% {
+
+    transform:
+      translateX(-6px)
+      rotate(-6deg);
+  }
+
+  80% {
+
+    transform:
+      translateX(6px)
+      rotate(6deg);
+  }
+
+  100% {
+
+    transform:
+      translateX(0)
+      rotate(0);
+  }
+}
+
+
+/* ==================================================
+   BANANA REWARD
+================================================== */
+
+#bananaReward {
+
+  position: absolute;
+
+  left: 30px;
+  bottom: 85px;
+
+  font-size: 42px;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  z-index: 20;
+}
+
+
+.showBanana {
+
+  animation:
+    bananaReward
+    0.9s
+    ease-out;
+}
+
+
+@keyframes bananaReward {
+
+  0% {
+
+    opacity: 0;
+
+    transform:
+      translateY(20px)
+      scale(0.5);
+  }
+
+  25% {
+
+    opacity: 1;
+
+    transform:
+      translateY(-5px)
+      scale(1.3);
+  }
+
+  60% {
+
+    opacity: 1;
+
+    transform:
+      translateY(-35px)
+      scale(1);
+  }
+
+  100% {
+
+    opacity: 0;
+
+    transform:
+      translateY(-70px)
+      scale(0.8);
+  }
+}
+
+
+/* ==================================================
+   SPARKLES
+================================================== */
+
+.sparkle {
+
+  position: absolute;
+
+  font-size: 25px;
+
+  pointer-events: none;
+
+  z-index: 30;
+
+  animation:
+    sparkle
+    0.8s
+    ease-out
+    forwards;
+}
+
+
+@keyframes sparkle {
+
+  0% {
+
+    opacity: 0;
+
+    transform:
+      translateY(0)
+      scale(0.5);
+  }
+
+  30% {
+
+    opacity: 1;
+
+    transform:
+      translateY(-10px)
+      scale(1.3);
+  }
+
+  100% {
+
+    opacity: 0;
+
+    transform:
+      translateY(-65px)
+      scale(0.7);
+  }
+}
+
+
+/* ==================================================
+   GROUND
+================================================== */
+
+#ground {
+
+  height: 45px;
+
+  background:
+    repeating-linear-gradient(
+      45deg,
+      #55b947,
+      #55b947 20px,
+      #3c9635 20px,
+      #3c9635 40px
+    );
+
+  border-top:
+    5px solid #276c2a;
+}
+
+
+/* ==================================================
+   QUESTION BOX
+================================================== */
+
+#questionBox {
+
+  background: white;
+
+  padding: 20px;
+
+  border-top:
+    5px solid #4b2e83;
+}
+
+
+/* ==================================================
+   PHASE
+================================================== */
+
+#phase {
+
+  font-size: 20px;
+
+  font-weight: bold;
+
+  color: #6b2d5c;
+
+  margin-bottom: 5px;
+}
+
+
+/* ==================================================
+   PROGRESS
+================================================== */
+
+#progress {
+
+  font-size: 16px;
+
+  color: #555;
+
+  margin-bottom: 10px;
+}
+
+
+/* ==================================================
+   QUESTION
+================================================== */
+
+#question {
+
+  font-size: 25px;
+
+  font-weight: bold;
+
+  margin: 15px 10px;
+}
+
+
+/* ==================================================
+   ANSWERS
+================================================== */
+
+.answer {
+
+  width: 40%;
+
+  margin: 8px;
+
+  padding: 15px;
+
+  border: none;
+
+  border-radius: 15px;
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+  color: white;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 5px 0 rgba(0,0,0,0.2);
+
+  transition:
+    transform 0.1s;
+}
+
+
+.answer:nth-child(1) {
+  background: #ff5c5c;
+}
+
+.answer:nth-child(2) {
+  background: #4d7cff;
+}
+
+.answer:nth-child(3) {
+  background: #ffb52e;
+}
+
+.answer:nth-child(4) {
+  background: #9b59b6;
+}
+
+
+.answer:active {
+
+  transform:
+    translateY(4px);
+
+  box-shadow: none;
+}
+
+
+/* ==================================================
+   MESSAGE
+================================================== */
+
+#message {
+
+  min-height: 40px;
+
+  margin-top: 15px;
+
+  font-size: 20px;
+
+  font-weight: bold;
+}
+
+
+/* ==================================================
+   SCORE
+================================================== */
+
+#score {
+
+  font-size: 19px;
+
+  font-weight: bold;
+
+  color: #4b2e83;
+}
+
+
+/* ==================================================
+   BANANA COUNTER
+================================================== */
+
+#bananaCount {
+
+  font-size: 19px;
+
+  font-weight: bold;
+
+  color: #d88900;
+
+  margin-top: 5px;
+}
+
+
+/* ==================================================
+   RESTART
+================================================== */
+
+#restart {
+
+  display: none;
+
+  padding: 12px 25px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #ff5c5c;
+
+  color: white;
+
+  font-size: 18px;
+
+  cursor: pointer;
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
+@media (max-width: 500px) {
+
+  #question {
+
+    font-size: 21px;
+  }
+
+  .answer {
+
+    width: 42%;
+
+    font-size: 19px;
+
+    padding: 13px;
+  }
+
+  #monkey {
+
+    font-size: 55px;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<h1>🐒 Norsk Monkey Run 🇳🇴</h1>
+
+<p>
+  Hjelp apen å lære norsk! 🍌
+</p>
+
+
+<div id="game">
+
+
+  <!-- ==================================================
+       SKY
+  ================================================== -->
+
+  <div id="sky">
+
+
+    <div class="cloud cloud1">
+      ☁️
+    </div>
+
+
+    <div class="cloud cloud2">
+      ☁️
+    </div>
+
+
+    <!-- MONKEY -->
+
+    <div id="monkey">
+      🐒
+    </div>
+
+
+    <!-- BANANA -->
+
+    <div id="bananaReward">
+      🍌
+    </div>
+
+
+  </div>
+
+
+  <!-- ==================================================
+       GROUND
+  ================================================== -->
+
+  <div id="ground"></div>
+
+
+  <!-- ==================================================
+       QUESTION AREA
+  ================================================== -->
+
+  <div id="questionBox">
+
+
+    <!-- PHASE -->
+
+    <div id="phase">
+      🗺️ Fase 1: Preposisjoner
+    </div>
+
+
+    <!-- PROGRESS -->
+
+    <div id="progress">
+      Spørsmål 1 av 5
+    </div>
+
+
+    <!-- SCORE -->
+
+    <div id="score">
+      ⭐ Poeng: 0
+    </div>
+
+
+    <!-- BANANER -->
+
+    <div id="bananaCount">
+      🍌 Bananer: 0
+    </div>
+
+
+    <!-- QUESTION -->
+
+    <div id="question">
+      Loading...
+    </div>
+
+
+    <!-- ANSWERS -->
+
+    <div id="answers"></div>
+
+
+    <!-- MESSAGE -->
+
+    <div id="message"></div>
+
+
+    <!-- RESTART -->
+
+    <button
+      id="restart"
+      onclick="startGame()">
+
+      🔄 Spill igjen
+
+    </button>
+
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+
+/* ==================================================
+   NORWEGIAN QUESTIONS
+
+   10 PHASES
+   5 QUESTIONS EACH
+   50 QUESTIONS TOTAL
+================================================== */
+
+
+const phases = [
+
+
+/* ==================================================
+   FASE 1 — PREPOSISJONER
+================================================== */
+
+  {
+    name: "Preposisjoner",
+
+    questions: [
+
+      {
+        question: "Luke bor ___ Tatooine.",
+        answers: ["i", "på", "til", "fra"],
+        correct: "på"
+      },
+
+      {
+        question: "Leia er ___ romskipet.",
+        answers: ["i", "på", "til", "fra"],
+        correct: "på"
+      },
+
+      {
+        question: "Han reiser ___ skolen.",
+        answers: ["til", "i", "på", "fra"],
+        correct: "til"
+      },
+
+      {
+        question: "Yoda kommer ___ en annen planet.",
+        answers: ["fra", "på", "til", "i"],
+        correct: "fra"
+      },
+
+      {
+        question: "Han bor ___ Norge.",
+        answers: ["i", "på", "til", "fra"],
+        correct: "i"
+      }
+
+    ]
+  },
+
+
+/* ==================================================
+   FASE 2 — PRONOMEN
+================================================== */
+
+  {
+    name: "Pronomen",
+
+    questions: [
+
+      {
+        question: "___ heter Luke.",
+        answers: ["Jeg", "Du", "Han", "De"],
+        correct: "Han"
+      },
+
+      {
+        question: "Leia snakker med Luke. ___ snakker sammen.",
+        answers: ["De", "Vi", "Han", "Du"],
+        correct: "De"
+      },
+
+      {
+        question: "Luke og Leia = ___.",
+        answers: ["vi", "dere", "de", "han"],
+        correct: "de"
+      },
+
+      {
+        question: "Du og jeg = ___.",
+        answers: ["vi", "dere", "de", "han"],
+        correct: "vi"
+      },
+
+      {
+        question: "Læreren snakker med elevene. Hun snakker med ___.",
+        answers: ["dem", "de", "vi", "han"],
+        correct: "dem"
+      }
+
+    ]
+  },
+
+
+/* ==================================================
+   FASE 3 — VERB
+================================================== */
+
+  {
+    name: "Verb",
+
+    questions: [
+
+      {
+        question: "Luke ___ norsk hver dag.",
+        answers: ["lærer", "lære", "lærte", "lært"],
+        correct: "lærer"
+      },
+
+      {
+        question: "Leia ___ på romskipet.",
+        answers: ["jobber", "jobbe", "jobbet", "jobberer"],
+        correct: "jobber"
+      },
+
+      {
+        question: "Yoda ___ mye.",
+        answers: ["vet", "vite", "visste", "visst"],
+        correct: "vet"
+      },
+
+      {
+        question: "Han ___ kaffe hver morgen.",
+        answers: ["drikker", "drikke", "drukket", "drakk"],
+        correct: "drikker"
+      },
+
+      {
+        question: "Luke ___ en bok.",
+        answers: ["leser", "lese", "leste", "lest"],
+        correct: "leser"
+      }
+
+    ]
+  },
+
+
+/* ==================================================
+   FASE 4 — ADJEKTIV
+================================================== */
+
+  {
+    name: "Adjektiv",
+
+    questions: [
+
+      {
+        question: "Darth Vader er ___.",
+        answers: ["stor", "lite", "liten", "små"],
+        correct: "stor"
+      },
+
+      {
+        question: "Romskipet er ___.",
+        answers: ["stor", "stort", "store", "større"],
+        correct: "stort"
+      },
+
+      {
+        question: "Luke er ___.",
+        answers: ["modig", "modige", "modigt", "modighet"],
+        correct: "modig"
+      },
+
+      {
+        question: "Filmen er ___.",
+        answers: ["spennende", "spennend", "spennenda", "spennendt"],
+        correct: "spennende"
+      },
+
+      {
+        question: "Oppgaven er ___.",
+        answers: ["vanskelig", "vanskelige", "vanskeligt", "vanskelighet"],
+        correct: "vanskelig"
+      }
+
+    ]
+  },
+
+
+/* ==================================================
+   FASE 5 — POSSESSIVER
+================================================== */
+
+  {
+    name: "Possessiver",
+
+    questions: [
+
+      {
+        question: "Dette er ___ bok.",
+        answers: ["min", "mitt", "mine", "meg"],
+        correct: "min"
+      },
+
+      {
+        question: "Luke finner ___ sverd.",
+        answers: ["sin", "sitt", "sine", "seg"],
+        correct: "sitt"
+      },
+
+      {
+        question: "Leia møter ___ venner.",
+        answers: ["sin", "sitt", "sine", "seg"],
+        correct: "sine"
+      },
+
+      {
+        question: "Dette er ___ hus.",
+        answers: ["min", "mitt", "mine", "meg"],
+        correct: "mitt"
+      },
+
+      {
+        question: "Vi besøker ___ venner.",
+        answers: ["våre", "vår", "vårt", "oss"],
+        correct: "våre"
+      }
+
+    ]
+  },
+
+
+/* ==================================================
+   FASE 6 — TALL
+================================================== */
+
+  {
+    name: "Tall",
+
+    questions: [
+
+      {
+        question: "Hva kommer etter én?",
+        answers: ["to", "tre", "fire", "fem"],
+        correct: "to"
+      },
+
+      {
+        question: "Hva er 5 + 5?",
+        answers: ["åtte", "ni", "ti", "elleve"],
+        correct: "ti"
+      },
+
+      {
+        question: "Hvilket tall er 20?",
+        answers: ["tolv", "tjue", "tretti", "fjorten"],
+        correct: "tjue"
+      },
+
+      {
+        question: "Hva kommer før ti?",
+        answers: ["åtte", "ni", "elleve", "tolv"],
+        correct: "ni"
+      },
+
+      {
+        question: "Hva er 10 + 10?",
+        answers: ["tjue", "tretti", "femten", "tolv"],
+        correct: "tjue"
+      }
+
+    ]
+  },
+
+
+/* ==================================================
+   FASE 7 — SETNINGSREKKEFØLGE
+================================================== */
+
+  {
+    name: "Setningsrekkefølge",
+
+    questions: [
+
+      {
+        question: "___ skal Luke på skolen.",
+        answers: ["I morgen", "I går", "I går han", "Han i morgen"],
+        correct: "I morgen"
+      },
+
+      {
+        question: "I morgen ___ Luke på jobb.",
+        answers: ["skal", "han skal", "skal han", "han"],
+        correct: "skal"
+      },
+
+      {
+        question: "___ Leia på skolen i morgen?",
+        answers: ["Skal", "Leia skal", "I morgen Leia", "Leia"],
+        correct: "Skal"
+      },
+
+      {
+        question: "I dag ___ Yoda norsk.",
+        answers: ["lærer", "Yoda lærer", "lære Yoda", "Yoda"],
+        correct: "lærer"
+      },
+
+      {
+        question: "I går ___ Han Solo hjemme.",
+        answers: ["var", "Han Solo var", "er han", "han er"],
+        correct: "var"
+      }
+
+    ]
+  },
+
+
+/* ==================================================
+   FASE 8 — ADVERB
+================================================== */
+
+  {
+    name: "Adverb",
+
+    questions: [
+
+      {
+        question: "Luke ___ trener om morgenen.",
+        answers: ["alltid", "aldri", "i går", "stor"],
+        correct: "alltid"
+      },
+
+      {
+        question: "Han spiser ___ frokost.",
+        answers: ["ofte", "stor", "rød", "hus"],
+        correct: "ofte"
+      },
+
+      {
+        question: "Leia kommer ___ på skolen.",
+        answers: ["kanskje", "blå", "bok", "stor"],
+        correct: "kanskje"
+      },
+
+      {
+        question: "Darth Vader går ___ på kino.",
+        answers: ["aldri", "grønn", "liten", "hus"],
+        correct: "aldri"
+      },
+
+      {
+        question: "Yoda liker norsk, og han liker ___ engelsk.",
+        answers: ["også", "stor", "aldri", "bok"],
+        correct: "også"
+      }
+
+    ]
+  },
+
+
+/* ==================================================
+   FASE 9 — SPØRSMÅL
+================================================== */
+
+  {
+    name: "Spørsmål",
+
+    questions: [
+
+      {
+        question: "___ heter du?",
+        answers: ["Hva", "Hvor", "Når", "Hvorfor"],
+        correct: "Hva"
+      },
+
+      {
+        question: "___ bor Luke?",
+        answers: ["Hvor", "Hva", "Hvem", "Når"],
+        correct: "Hvor"
+      },
+
+      {
+        question: "___ kommer Leia fra?",
+        answers: ["Hvor", "Hva", "Hvem", "Hvordan"],
+        correct: "Hvor"
+      },
+
+      {
+        question: "___ er læreren din?",
+        answers: ["Hvem", "Hva", "Hvor", "Når"],
+        correct: "Hvem"
+      },
+
+      {
+        question: "___ begynner skolen?",
+        answers: ["Når", "Hvem", "Hvor", "Hva"],
+        correct: "Når"
+      }
+
+    ]
+  },
+
+
+/* ==================================================
+   FASE 10 — BLANDET NORSK
+================================================== */
+
+  {
+    name: "Blandet norsk",
+
+    questions: [
+
+      {
+        question: "I morgen ___ Luke til skolen.",
+        answers: ["skal", "på", "min", "glad"],
+        correct: "skal"
+      },
+
+      {
+        question: "Luke bor ___ Tatooine.",
+        answers: ["på", "i", "til", "fra"],
+        correct: "på"
+      },
+
+      {
+        question: "Dette er ___ bok.",
+        answers: ["min", "mitt", "mine", "meg"],
+        correct: "min"
+      },
+
+      {
+        question: "Leia ___ norsk hver dag.",
+        answers: ["lærer", "lære", "lært", "læres"],
+        correct: "lærer"
+      },
+
+      {
+        question: "___ du liker Star Wars?",
+        answers: ["Liker", "Du liker", "I morgen", "Star Wars"],
+        correct: "Liker"
+      }
+
+    ]
+  }
+
+];
+
+
+/* ==================================================
+   GAME VARIABLES
+================================================== */
+
+let currentPhase = 0;
+
+let currentQuestion = 0;
+
+let score = 0;
+
+let bananas = 0;
+
+let monkeyPosition = 30;
+
+let movingRight = true;
+
+let answering = false;
+
+
+/* ==================================================
+   ELEMENTS
+================================================== */
+
+const monkey =
+  document.getElementById("monkey");
+
+const bananaReward =
+  document.getElementById("bananaReward");
+
+const question =
+  document.getElementById("question");
+
+const answers =
+  document.getElementById("answers");
+
+const message =
+  document.getElementById("message");
+
+const scoreText =
+  document.getElementById("score");
+
+const bananaText =
+  document.getElementById("bananaCount");
+
+const phaseText =
+  document.getElementById("phase");
+
+const progressText =
+  document.getElementById("progress");
+
+const restart =
+  document.getElementById("restart");
+
+const sky =
+  document.getElementById("sky");
+
+
+/* ==================================================
+   START GAME
+================================================== */
+
+function startGame() {
+
+  currentPhase = 0;
+
+  currentQuestion = 0;
+
+  score = 0;
+
+  bananas = 0;
+
+  monkeyPosition = 30;
+
+  movingRight = true;
+
+  answering = false;
+
+  restart.style.display = "none";
+
+  monkey.textContent = "🐒";
+
+  monkey.style.left = "30px";
+
+  updateScore();
+
+  updateBananas();
+
+  showQuestion();
+}
+
+
+/* ==================================================
+   SHOW QUESTION
+================================================== */
+
+function showQuestion() {
+
+  answering = false;
+
+  const phase =
+    phases[currentPhase];
+
+  const q =
+    phase.questions[currentQuestion];
+
+
+  phaseText.textContent =
+    "🗺️ Fase " +
+    (currentPhase + 1) +
+    ": " +
+    phase.name;
+
+
+  progressText.textContent =
+    "Spørsmål " +
+    (currentQuestion + 1) +
+    " av " +
+    phase.questions.length;
+
+
+  question.textContent =
+    q.question;
+
+
+  message.textContent =
+    "";
+
+
+  answers.innerHTML =
+    "";
+
+
+  q.answers.forEach(
+    function(answer) {
+
+      const button =
+        document.createElement("button");
+
+      button.className =
+        "answer";
+
+      button.textContent =
+        answer;
+
+      button.onclick =
+        function() {
+
+          checkAnswer(answer);
+
+        };
+
+      answers.appendChild(button);
+
+    }
+  );
+}
+
+
+/* ==================================================
+   CHECK ANSWER
+================================================== */
+
+function checkAnswer(answer) {
+
+  if (answering) {
+    return;
+  }
+
+
+  const correct =
+    phases[currentPhase]
+    .questions[currentQuestion]
+    .correct;
+
+
+  /* ==================================================
+     CORRECT
+  ================================================== */
+
+  if (answer === correct) {
+
+    answering = true;
+
+
+    score++;
+
+    bananas++;
+
+
+    updateScore();
+
+    updateBananas();
+
+
+    /* HAPPY MONKEY */
+
+    monkey.textContent =
+      "🐒";
+
+
+    monkey.classList.remove(
+      "monkeyWrong"
+    );
+
+    monkey.classList.remove(
+      "monkeyHappy"
+    );
+
+    void monkey.offsetWidth;
+
+    monkey.classList.add(
+      "monkeyHappy"
+    );
+
+
+    message.textContent =
+      "🎉 Riktig! 🍌 +1 banan!";
+
+
+    moveMonkey();
+
+    createSparkles();
+
+    showBanana();
+
+
+    setTimeout(
+      nextQuestion,
+      1000
+    );
+
+  }
+
+
+  /* ==================================================
+     WRONG
+  ================================================== */
+
+  else {
+
+    monkey.textContent =
+      "🙉";
+
+
+    monkey.classList.remove(
+      "monkeyHappy"
+    );
+
+    monkey.classList.remove(
+      "monkeyWrong"
+    );
+
+    void monkey.offsetWidth;
+
+    monkey.classList.add(
+      "monkeyWrong"
+    );
+
+
+    message.textContent =
+      "❌ Ikke riktig. Prøv igjen!";
+
+  }
+
+}
+
+
+/* ==================================================
+   MOVE MONKEY
+================================================== */
+
+function moveMonkey() {
+
+  const step = 55;
+
+
+  if (movingRight) {
+
+    monkeyPosition += step;
+
+  }
+
+  else {
+
+    monkeyPosition -= step;
+
+  }
+
+
+  const maxPosition =
+    sky.clientWidth - 90;
+
+
+  if (
+    monkeyPosition >
+    maxPosition
+  ) {
+
+    monkeyPosition =
+      maxPosition;
+
+    movingRight = false;
+
+  }
+
+
+  if (
+    monkeyPosition < 30
+  ) {
+
+    monkeyPosition = 30;
+
+    movingRight = true;
+
+  }
+
+
+  monkey.style.left =
+    monkeyPosition + "px";
+}
+
+
+/* ==================================================
+   BANANA
+================================================== */
+
+function showBanana() {
+
+  bananaReward.style.left =
+    monkeyPosition + "px";
+
+
+  bananaReward.classList.remove(
+    "showBanana"
+  );
+
+
+  void bananaReward.offsetWidth;
+
+
+  bananaReward.classList.add(
+    "showBanana"
+  );
+}
+
+
+/* ==================================================
+   SPARKLES
+================================================== */
+
+function createSparkles() {
+
+  const symbols = [
+    "✨",
+    "⭐",
+    "💫",
+    "✨"
+  ];
+
+
+  symbols.forEach(
+    function(symbol, index) {
+
+      const sparkle =
+        document.createElement("div");
+
+
+      sparkle.className =
+        "sparkle";
+
+
+      sparkle.textContent =
+        symbol;
+
+
+      sparkle.style.left =
+        (
+          monkeyPosition -
+          10 +
+          index * 18
+        ) + "px";
+
+
+      sparkle.style.bottom =
+        "85px";
+
+
+      sky.appendChild(
+        sparkle
+      );
+
+
+      setTimeout(
+        function() {
+
+          sparkle.remove();
+
+        },
+        800
+      );
+
+    }
+  );
+}
+
+
+/* ==================================================
+   NEXT QUESTION
+================================================== */
+
+function nextQuestion() {
+
+  currentQuestion++;
+
+
+  if (
+    currentQuestion <
+    phases[currentPhase]
+    .questions.length
+  ) {
+
+    monkey.textContent =
+      "🐒";
+
+    showQuestion();
+
+    return;
+  }
+
+
+  if (
+    currentPhase <
+    phases.length - 1
+  ) {
+
+    showPhaseComplete();
+
+  }
+
+  else {
+
+    finishGame();
+
+  }
+}
+
+
+/* ==================================================
+   PHASE COMPLETE
+================================================== */
+
+function showPhaseComplete() {
+
+  monkey.textContent =
+    "🐒";
+
+
+  const completedPhase =
+    phases[currentPhase];
+
+
+  phaseText.textContent =
+    "🎉 Fase " +
+    (currentPhase + 1) +
+    " ferdig!";
+
+
+  progressText.textContent =
+    completedPhase.name;
+
+
+  question.textContent =
+    "🐒 Bra jobbet!";
+
+
+  answers.innerHTML =
+    "⭐ Du klarte alle " +
+    completedPhase.questions.length +
+    " spørsmål!";
+
+
+  message.textContent =
+    "🍌 Du har " +
+    bananas +
+    " bananer!";
+
+
+  setTimeout(
+    function() {
+
+      currentPhase++;
+
+      currentQuestion = 0;
+
+      showQuestion();
+
+    },
+    1500
+  );
+}
+
+
+/* ==================================================
+   SCORE
+================================================== */
+
+function updateScore() {
+
+  scoreText.textContent =
+    "⭐ Poeng: " +
+    score;
+}
+
+
+/* ==================================================
+   BANANA COUNTER
+================================================== */
+
+function updateBananas() {
+
+  bananaText.textContent =
+    "🍌 Bananer: " +
+    bananas;
+}
+
+
+/* ==================================================
+   FINISH GAME
+================================================== */
+
+function finishGame() {
+
+  monkey.textContent =
+    "🐒";
+
+
+  phaseText.textContent =
+    "🏆 ALLE FASER FERDIGE!";
+
+
+  progressText.textContent =
+    "50 spørsmål fullført";
+
+
+  question.textContent =
+    "🎉 Du klarte hele Norsk Monkey Run!";
+
+
+  answers.innerHTML =
+    "🍌 Du samlet " +
+    bananas +
+    " bananer!";
+
+
+  message.textContent =
+    "🇳🇴 Fantastisk! Du har øvd på masse norsk!";
+
+
+  restart.style.display =
+    "inline-block";
+}
+
+
+/* ==================================================
+   START
+================================================== */
+
+startGame();
+
+</script>
+
+
+</body>
+
+</html>
